@@ -1,0 +1,13 @@
+{
+    "name": "passengers",
+    "version": "1.0.0",
+    "private": true,
+    "author": "Ivan Polovko <polovko99v@gmail.com>",
+    "scripts": {
+        "start": "concurrently \"cd Backend && npm start\" \"cd Frontend && npm start\"",
+        "install": "concurrently \"cd Backend && npm install\" \"cd Frontend && npm install\""
+    },
+    "dependencies": {
+        "concurrently": "^5.2.0"
+    }
+}

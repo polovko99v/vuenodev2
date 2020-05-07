@@ -1,0 +1,25 @@
+{
+    "name": "passengers_node",
+    "version": "1.0.0",
+    "private": true,
+    "author": "Polovko Ivan <polovko99v@gmail.com>",
+    "scripts": {
+        "start": "concurrently \"npm run database\" \"npm run server\"",
+        "server": "nodemon --exec babel-node ./src/main.js",
+        "database": "md data & \"C:/Program Files/MongoDb/Server/4.2/bin/mongod.exe\" --dbpath data",
+        "fix": "(if not exist data md data ) & \"C:/Program Files/MongoDb/Server/4.2/bin/mongod.exe\" --repair --dbpath data"
+    },
+    "dependencies": {
+        "@babel/cli": "^7.8.4",
+        "@babel/core": "^7.9.6",
+        "@babel/node": "^7.8.7",
+        "@babel/preset-env": "^7.9.6",
+        "cors": "^2.8.5",
+        "express": "^4.17.1",
+        "mongoose": "^5.9.12",
+        "nodemon": "^2.0.3"
+    },
+    "devDependencies": {
+        "concurrently": "^5.2.0"
+    }
+}

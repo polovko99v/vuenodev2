@@ -1,0 +1,15 @@
+{
+    "name": "passengers_vue",
+    "version": "1.0.0",
+    "private": true,
+    "author": "Polovko Ivan <polovko99v@gmail.com>",
+    "scripts": {
+        "start": "vue-cli-service serve"
+    },
+    "dependencies": {
+        "@vue/cli-service": "^4.3.1",
+        "axios": "^0.19.2",
+        "vue": "^2.6.11",
+        "vue-template-compiler": "^2.6.11"
+    }
+}
