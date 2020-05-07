@@ -1,18 +1,19 @@
 <template>
     <tr>        
-        <td> {{index}} </td>
+        <td> {{index+1}} </td>
         <td> {{passenger.name}} </td>
         <td> {{passenger.destination}} </td>
         <td> {{passenger.luggageCount}} </td>
         <td> {{passenger.luggageWeight}} </td>
         <td>
-            <input type="button" value="Вилучити" @click="remove(index)">
-            <input type="button" value="Редагувати" @click="update(index)">
+            <input type="button" value="Вилучити" @click="deletePassenger(passenger)">
+            <input type="button" value="Редагувати" @click="showUpdateForm(passenger)">
         </td>        
     </tr>
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 export default {
     name:"passengerTableRow",
     props:{
@@ -25,13 +26,10 @@ export default {
         }
     },
     methods:{        
-        remove(index){
-            this.$emit("remove", index);
-        },
-  
-        update(index){
-            this.$emit("update",index);
-        }
+       ...mapActions(["deletePassenger", "showUpdateForm"]),
+        updated(){
+        console.log(this.passenger);
+        }    
     }
 }
 </script>

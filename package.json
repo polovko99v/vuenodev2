@@ -8,6 +8,7 @@
         "install": "concurrently \"cd Backend && npm install\" \"cd Frontend && npm install\""
     },
     "dependencies": {
-        "concurrently": "^5.2.0"
+        "concurrently": "^5.2.0",
+        "vuex": "^3.3.0"
     }
 }

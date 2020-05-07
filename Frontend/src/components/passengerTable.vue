@@ -1,10 +1,10 @@
 <template>
     <div>
-        <p v-if="passengerList.length==0" class="alert">
+        <p v-if="passengers.length==0" class="alert">
             Пасажири відсутні
         </p>
         
-        <table v-if="passengerList.length>0">
+        <table v-if="passengers.length>0">
             <tr>
                 <th>#</th>
                 <th v-on:click="sort('name')">  ПІБ </th>
@@ -13,11 +13,9 @@
                 <th v-on:click="sort('luggageWeight')"> Вага багажу </th>
                 <th></th>
             </tr>
-            <passengerTableRow v-for="(passenger,index) in passengerList" 
+            <passengerTableRow v-for="(passenger, index) in passengers" 
                 v-bind:key="passenger._id" 
-                v-bind="{passenger,index}"
-                @remove="remove"
-                @update="update" 
+                v-bind="{passenger, index}" 
             >             
             </passengerTableRow>
         </table>
@@ -26,33 +24,27 @@
 
 <script>
 import passengerTableRow from "./passengerTableRow";
+import { mapGetters, mapMutations} from 'vuex';
 
 export default {
     name:"passengerTable",
-    props:{
-        passengerList:Array,
-    },
     data(){
         return{
-           passengers: this.passengerList
+           
         }
     },
     components:{
         passengerTableRow
     },
+    computed:{
+            ...mapGetters({
+           passengers:"filtredPassengers"
+       }) 
+    },
     methods:{
-        sort(field){
-           this.passengerList.sort((b1,b2)=> b1[field]>=b2[field]?1:-1);
-        },
-        sortAuthor(){
-            this.passengerList.sort((b1,b2)=>b1.name.join(",")>=b2.name.join(",")?1:-1);
-        }, 
-        remove(index){
-            this.$emit("remove",index);
-        },  
-        update(index){
-            this.$emit("update",index);
-        }
+        ...mapMutations({
+            sort:"sortPassengers"
+        })
     }
 }
 </script>
@@ -66,5 +58,6 @@ export default {
     table, table td{
         border-collapse: collapse;
         border: 1px solid black;
+        width: 100%;
     }
 </style>

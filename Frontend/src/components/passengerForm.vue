@@ -4,28 +4,38 @@
         <label> Місце призначення <input type="text" v-model="passenger.destination"> </label> <br>
         <label> Кількість багажу <input type="number" v-model="passenger.luggageCount" min="0"> </label> <br>
         <label> Вага багажу <input type="number" v-model.number="passenger.luggageWeight" min="0"> </label> <br>         
-        <input type="button" @click="save()" value="Зберегти">     
+        <input type="button" @click="save" value="Зберегти">   
+        <input type="button" @click="hideForm" value="Відміна">   
     </form>
 </template>
 
 <script>
+import { mapState, mapMutations, mapActions } from 'vuex';
 export default {
     name:"passengerForm",
-    props:{
-        value:Object,
-        visible:Boolean
-    },
     data(){
         return{
-            passenger:this.value,
+           
         }
     },
     components:{
     },
-    methods:{
-        save(){
-            console.log(this.passenger)
-            this.$emit('input', this.passenger);
+    computed:{
+        ...mapState({
+            passenger:"formPassenger",
+            visible:"formVisible",
+            newMode:"formNewMode"
+        })
+    },
+     methods:{
+        ...mapActions(["patchPassenger","postPassenger"]),
+        ...mapMutations(["hideForm"]),
+        async save(){
+            if (this.newMode)
+                await this.postPassenger(this.passenger);
+            else
+                await this.patchPassenger(this.passenger);    
+            this.hideForm();         
         }
     }
 }

@@ -12,9 +12,17 @@ const passengerControler = {
 
         function makeQueryObject(query){
             let result={};
-            if(query.place)
-            result.$expr={"$eq":[{"$place":"$destination"},]};
+            if(query.minWeight){
+                result.luggageWeight={"$gte": parseInt(query.minWeight)};
+            }
+            if(query.maxWeight){
+                if (!result.luggageWeight )
+                    result.luggageWeight = {};
+                result.luggageWeight.$lte=parseInt(query.maxWeight);
+            }
+            return result;
         }
+      
     },
     async getById(req,res){
         try{

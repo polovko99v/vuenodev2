@@ -1,30 +1,29 @@
 <template>
     <form @submit.prevent>
-        Місце призначення  <input type="text" v-model="query.destination"> 
+         Вага вантажу від <input type="number" v-model.number="query.minWeight"> до <input type="number" v-model.number="query.maxWeight">        
         <input type="button" value="Шукати" @click="search()">
         <input type="button" value="Очистити" @click="reset()">
     </form>
 </template>
 <script>
+import { mapActions } from 'vuex';
 export default {
-    props:{
-        value:Object
-    },
     data(){
         return{
-            query:this.value
+            query: {
+                minWeight:null,
+                maxWeight:null
+            }
         }
     },
     methods:{
+       ...mapActions(["getPassengersByQuery"]),
         reset(){
-            this.query.destination = "";
-            this.$emit("input",this.query);
-            console.log(this.query)
+            this.query.minWeight=this.query.maxWeight=null;
+            this.getPassengersByQuery(this.query);
         },
-        search(){
-            
-            this.$emit("input",this.query);
-            console.log(this.query)
+        search(){            
+            this.getPassengersByQuery(this.query);
         }
     }
 }
